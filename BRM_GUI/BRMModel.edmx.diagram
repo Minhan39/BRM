@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4b29ed93b84c4c7e9035dc8ef55fef26" Name="Diagram1" ZoomLevel="55">
+        <EntityTypeShape EntityType="CPv3Model.Bus" Width="1.5" PointX="3" PointY="8.5" />
+        <EntityTypeShape EntityType="CPv3Model.BusConnectingRoute" Width="1.5" PointX="8.25" PointY="9.125" />
+        <EntityTypeShape EntityType="CPv3Model.BusDelay" Width="1.5" PointX="5.25" PointY="5.25" />
+        <EntityTypeShape EntityType="CPv3Model.BusDistributor" Width="1.5" PointX="0.75" PointY="5.25" />
+        <EntityTypeShape EntityType="CPv3Model.BusGuide" Width="1.5" PointX="5.25" PointY="9.375" />
+        <EntityTypeShape EntityType="CPv3Model.BusRoute" Width="1.5" PointX="6" PointY="0.75" />
+        <EntityTypeShape EntityType="CPv3Model.BusRouteDelay" Width="1.5" PointX="8.25" PointY="1.875" />
+        <EntityTypeShape EntityType="CPv3Model.BusRouteMatch" Width="1.5" PointX="8.25" PointY="5.625" />
+        <EntityTypeShape EntityType="CPv3Model.BusStop" Width="1.5" PointX="3.75" PointY="1.875" />
+        <EntityTypeShape EntityType="CPv3Model.BusType" Width="1.5" PointX="0.75" PointY="9.375" />
+        <EntityTypeShape EntityType="CPv3Model.Delay" Width="1.5" PointX="3" PointY="5.375" />
+        <EntityTypeShape EntityType="CPv3Model.Feedback" Width="1.5" PointX="0.75" PointY="1.375" />
+        <EntityTypeShape EntityType="CPv3Model.Guide" Width="1.5" PointX="3" PointY="13.375" />
+        <EntityTypeShape EntityType="CPv3Model.HandlingViolation" Width="1.5" PointX="5.25" PointY="17.125" />
+        <EntityTypeShape EntityType="CPv3Model.Log" Width="1.5" PointX="13" PointY="2.125" />
+        <EntityTypeShape EntityType="CPv3Model.SupportPrice" Width="1.5" PointX="5.25" PointY="20.75" />
+        <EntityTypeShape EntityType="CPv3Model.sysdiagram" Width="1.5" PointX="10.75" PointY="6.375" />
+        <EntityTypeShape EntityType="CPv3Model.User" Width="1.5" PointX="10.75" PointY="1.5" />
+        <AssociationConnector Association="CPv3Model.FK_Bus_BusDistributor" />
+        <AssociationConnector Association="CPv3Model.FK_Bus_BusType" />
+        <AssociationConnector Association="CPv3Model.FK_BusConnectingRoute_Bus" />
+        <AssociationConnector Association="CPv3Model.FK_BusDelay_Bus" />
+        <AssociationConnector Association="CPv3Model.FK_BusGuide_Bus" />
+        <AssociationConnector Association="CPv3Model.FK_HandlingViolation_Bus" />
+        <AssociationConnector Association="CPv3Model.FK_BusConnectingRoute_BusRoute" />
+        <AssociationConnector Association="CPv3Model.FK_BusDelay_Delay" />
+        <AssociationConnector Association="CPv3Model.FK_BusGuide_Guide" />
+        <AssociationConnector Association="CPv3Model.FK_BusRoute_BusStop" />
+        <AssociationConnector Association="CPv3Model.FK_BusRoute_BusStop1" />
+        <AssociationConnector Association="CPv3Model.FK_BusRouteDelay_BusRoute" />
+        <AssociationConnector Association="CPv3Model.FK_BusRouteMatch_BusRoute" />
+        <AssociationConnector Association="CPv3Model.FK_BusRouteMatch_BusRoute1" />
+        <AssociationConnector Association="CPv3Model.FK_BusRouteDelay_Delay" />
+        <AssociationConnector Association="CPv3Model.FK_Log_User" />
+        <AssociationConnector Association="CPv3Model.BusPriceSupport" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

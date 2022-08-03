@@ -1,0 +1,1313 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CPv3Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Bus">
+          <Key>
+            <PropertyRef Name="busId" />
+          </Key>
+          <Property Name="busId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="taxCode" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="licensePlate" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="seats" Type="int" />
+          <Property Name="busDistributorId" Type="int" Nullable="false" />
+          <Property Name="busTypeId" Type="int" Nullable="false" />
+          <Property Name="atCreate" Type="datetime" />
+          <Property Name="atUpdate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="BusConnectingRoute">
+          <Key>
+            <PropertyRef Name="busConnectingRouteId" />
+          </Key>
+          <Property Name="busId" Type="int" Nullable="false" />
+          <Property Name="busRouteId" Type="int" Nullable="false" />
+          <Property Name="timeStart" Type="datetime" Nullable="false" />
+          <Property Name="timeEnd" Type="datetime" Nullable="false" />
+          <Property Name="atCreate" Type="datetime" />
+          <Property Name="atUpdate" Type="datetime" />
+          <Property Name="busConnectingRouteId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BusDelay">
+          <Key>
+            <PropertyRef Name="delayId" />
+            <PropertyRef Name="busId" />
+          </Key>
+          <Property Name="delayId" Type="int" Nullable="false" />
+          <Property Name="busId" Type="int" Nullable="false" />
+          <Property Name="timeStartDelay" Type="datetime" Nullable="false" />
+          <Property Name="timeEndDelay" Type="datetime" Nullable="false" />
+          <Property Name="atCreate" Type="datetime" />
+          <Property Name="atUpdate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="BusDistributor">
+          <Key>
+            <PropertyRef Name="busDistributorId" />
+          </Key>
+          <Property Name="busDistributorId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="address" Type="nvarchar" MaxLength="100" />
+          <Property Name="contact" Type="nvarchar" MaxLength="50" />
+          <Property Name="description" Type="ntext" />
+          <Property Name="atCreate" Type="datetime" />
+          <Property Name="atUpdate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="BusGuide">
+          <Key>
+            <PropertyRef Name="busId" />
+            <PropertyRef Name="guideId" />
+          </Key>
+          <Property Name="busId" Type="int" Nullable="false" />
+          <Property Name="guideId" Type="int" Nullable="false" />
+          <Property Name="numebericOrder" Type="int" Nullable="false" />
+          <Property Name="atCreate" Type="datetime" />
+          <Property Name="atUpdate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="BusPriceSupport">
+          <Key>
+            <PropertyRef Name="busId" />
+            <PropertyRef Name="supportPriceId" />
+          </Key>
+          <Property Name="busId" Type="int" Nullable="false" />
+          <Property Name="supportPriceId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BusRoute">
+          <Key>
+            <PropertyRef Name="busRouteId" />
+          </Key>
+          <Property Name="busRouteId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="busStopIdBegin" Type="int" Nullable="false" />
+          <Property Name="busStopIdEnd" Type="int" Nullable="false" />
+          <Property Name="isMatch" Type="bit" Nullable="false" />
+          <Property Name="atCreate" Type="datetime" />
+          <Property Name="atUpdate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="BusRouteDelay">
+          <Key>
+            <PropertyRef Name="delayId" />
+            <PropertyRef Name="busRouteId" />
+          </Key>
+          <Property Name="delayId" Type="int" Nullable="false" />
+          <Property Name="busRouteId" Type="int" Nullable="false" />
+          <Property Name="timeStartDelay" Type="datetime" Nullable="false" />
+          <Property Name="timeEndDelay" Type="datetime" Nullable="false" />
+          <Property Name="atCreate" Type="datetime" />
+          <Property Name="atUpdate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="BusRouteMatch">
+          <Key>
+            <PropertyRef Name="busRouteIdParent" />
+            <PropertyRef Name="busRouteIdChild" />
+          </Key>
+          <Property Name="busRouteIdParent" Type="int" Nullable="false" />
+          <Property Name="busRouteIdChild" Type="int" Nullable="false" />
+          <Property Name="numericalOrder" Type="int" Nullable="false" />
+          <Property Name="atCreate" Type="datetime" />
+          <Property Name="atUpdate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="BusStop">
+          <Key>
+            <PropertyRef Name="busStopId" />
+          </Key>
+          <Property Name="busStopId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="x" Type="float" Nullable="false" />
+          <Property Name="y" Type="float" Nullable="false" />
+          <Property Name="atCreate" Type="datetime" />
+          <Property Name="atUpdate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="BusType">
+          <Key>
+            <PropertyRef Name="busTypeID" />
+          </Key>
+          <Property Name="busTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="description" Type="ntext" />
+          <Property Name="atCreate" Type="datetime" />
+          <Property Name="atUpdate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Delay">
+          <Key>
+            <PropertyRef Name="delayId" />
+          </Key>
+          <Property Name="delayId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="reason" Type="ntext" Nullable="false" />
+          <Property Name="atCreate" Type="datetime" />
+          <Property Name="atUpdate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Feedback">
+          <Key>
+            <PropertyRef Name="feedbackId" />
+          </Key>
+          <Property Name="feedbackId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="body" Type="ntext" Nullable="false" />
+          <Property Name="atCreate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Guide">
+          <Key>
+            <PropertyRef Name="guideId" />
+          </Key>
+          <Property Name="guideId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="nvarchar" MaxLength="50" />
+          <Property Name="body" Type="ntext" />
+          <Property Name="atCreate" Type="datetime" />
+          <Property Name="atUpdate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="HandlingViolation">
+          <Key>
+            <PropertyRef Name="hadlingViolationId" />
+          </Key>
+          <Property Name="hadlingViolationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="busId" Type="int" Nullable="false" />
+          <Property Name="dispatchNumber" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="numberOfminutes" Type="int" />
+          <Property Name="dateOfViolation" Type="date" Nullable="false" />
+          <Property Name="body" Type="ntext" Nullable="false" />
+          <Property Name="violationLevel" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="penaltyRate" Type="int" Nullable="false" />
+          <Property Name="currencyUnit" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Log">
+          <Key>
+            <PropertyRef Name="logID" />
+          </Key>
+          <Property Name="logID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userID" Type="int" Nullable="false" />
+          <Property Name="body" Type="ntext" Nullable="false" />
+          <Property Name="atCreate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="SupportPrice">
+          <Key>
+            <PropertyRef Name="supportPriceId" />
+          </Key>
+          <Property Name="supportPriceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="description" Type="ntext" />
+          <Property Name="supportValue" Type="int" Nullable="false" />
+          <Property Name="currencyUnit" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="atCreate" Type="datetime" />
+          <Property Name="atUpdate" Type="datetime" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="timeStart" Type="datetime" />
+          <Property Name="timeEnd" Type="datetime" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="isRole" Type="bit" Nullable="false" />
+          <Property Name="firstname" Type="nvarchar" MaxLength="20" />
+          <Property Name="lastname" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="50" />
+          <Property Name="phone" Type="varchar" MaxLength="50" />
+          <Property Name="atCreate" Type="datetime" />
+          <Property Name="atUpdate" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_Bus_BusDistributor">
+          <End Role="BusDistributor" Type="Self.BusDistributor" Multiplicity="1" />
+          <End Role="Bus" Type="Self.Bus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BusDistributor">
+              <PropertyRef Name="busDistributorId" />
+            </Principal>
+            <Dependent Role="Bus">
+              <PropertyRef Name="busDistributorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bus_BusType">
+          <End Role="BusType" Type="Self.BusType" Multiplicity="1" />
+          <End Role="Bus" Type="Self.Bus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BusType">
+              <PropertyRef Name="busTypeID" />
+            </Principal>
+            <Dependent Role="Bus">
+              <PropertyRef Name="busTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BusConnectingRoute_Bus">
+          <End Role="Bus" Type="Self.Bus" Multiplicity="1" />
+          <End Role="BusConnectingRoute" Type="Self.BusConnectingRoute" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bus">
+              <PropertyRef Name="busId" />
+            </Principal>
+            <Dependent Role="BusConnectingRoute">
+              <PropertyRef Name="busId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BusConnectingRoute_BusRoute">
+          <End Role="BusRoute" Type="Self.BusRoute" Multiplicity="1" />
+          <End Role="BusConnectingRoute" Type="Self.BusConnectingRoute" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BusRoute">
+              <PropertyRef Name="busRouteId" />
+            </Principal>
+            <Dependent Role="BusConnectingRoute">
+              <PropertyRef Name="busRouteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BusDelay_Bus">
+          <End Role="Bus" Type="Self.Bus" Multiplicity="1" />
+          <End Role="BusDelay" Type="Self.BusDelay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bus">
+              <PropertyRef Name="busId" />
+            </Principal>
+            <Dependent Role="BusDelay">
+              <PropertyRef Name="busId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BusDelay_Delay">
+          <End Role="Delay" Type="Self.Delay" Multiplicity="1" />
+          <End Role="BusDelay" Type="Self.BusDelay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Delay">
+              <PropertyRef Name="delayId" />
+            </Principal>
+            <Dependent Role="BusDelay">
+              <PropertyRef Name="delayId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BusGuide_Bus">
+          <End Role="Bus" Type="Self.Bus" Multiplicity="1" />
+          <End Role="BusGuide" Type="Self.BusGuide" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bus">
+              <PropertyRef Name="busId" />
+            </Principal>
+            <Dependent Role="BusGuide">
+              <PropertyRef Name="busId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BusGuide_Guide">
+          <End Role="Guide" Type="Self.Guide" Multiplicity="1" />
+          <End Role="BusGuide" Type="Self.BusGuide" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Guide">
+              <PropertyRef Name="guideId" />
+            </Principal>
+            <Dependent Role="BusGuide">
+              <PropertyRef Name="guideId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BusPriceSupport_Bus">
+          <End Role="Bus" Type="Self.Bus" Multiplicity="1" />
+          <End Role="BusPriceSupport" Type="Self.BusPriceSupport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bus">
+              <PropertyRef Name="busId" />
+            </Principal>
+            <Dependent Role="BusPriceSupport">
+              <PropertyRef Name="busId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BusPriceSupport_SupportPrice">
+          <End Role="SupportPrice" Type="Self.SupportPrice" Multiplicity="1" />
+          <End Role="BusPriceSupport" Type="Self.BusPriceSupport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SupportPrice">
+              <PropertyRef Name="supportPriceId" />
+            </Principal>
+            <Dependent Role="BusPriceSupport">
+              <PropertyRef Name="supportPriceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BusRoute_BusStop">
+          <End Role="BusStop" Type="Self.BusStop" Multiplicity="1" />
+          <End Role="BusRoute" Type="Self.BusRoute" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BusStop">
+              <PropertyRef Name="busStopId" />
+            </Principal>
+            <Dependent Role="BusRoute">
+              <PropertyRef Name="busStopIdBegin" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BusRoute_BusStop1">
+          <End Role="BusStop" Type="Self.BusStop" Multiplicity="1" />
+          <End Role="BusRoute" Type="Self.BusRoute" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BusStop">
+              <PropertyRef Name="busStopId" />
+            </Principal>
+            <Dependent Role="BusRoute">
+              <PropertyRef Name="busStopIdEnd" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BusRouteDelay_BusRoute">
+          <End Role="BusRoute" Type="Self.BusRoute" Multiplicity="1" />
+          <End Role="BusRouteDelay" Type="Self.BusRouteDelay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BusRoute">
+              <PropertyRef Name="busRouteId" />
+            </Principal>
+            <Dependent Role="BusRouteDelay">
+              <PropertyRef Name="busRouteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BusRouteDelay_Delay">
+          <End Role="Delay" Type="Self.Delay" Multiplicity="1" />
+          <End Role="BusRouteDelay" Type="Self.BusRouteDelay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Delay">
+              <PropertyRef Name="delayId" />
+            </Principal>
+            <Dependent Role="BusRouteDelay">
+              <PropertyRef Name="delayId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BusRouteMatch_BusRoute">
+          <End Role="BusRoute" Type="Self.BusRoute" Multiplicity="1" />
+          <End Role="BusRouteMatch" Type="Self.BusRouteMatch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BusRoute">
+              <PropertyRef Name="busRouteId" />
+            </Principal>
+            <Dependent Role="BusRouteMatch">
+              <PropertyRef Name="busRouteIdParent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BusRouteMatch_BusRoute1">
+          <End Role="BusRoute" Type="Self.BusRoute" Multiplicity="1" />
+          <End Role="BusRouteMatch" Type="Self.BusRouteMatch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BusRoute">
+              <PropertyRef Name="busRouteId" />
+            </Principal>
+            <Dependent Role="BusRouteMatch">
+              <PropertyRef Name="busRouteIdChild" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HandlingViolation_Bus">
+          <End Role="Bus" Type="Self.Bus" Multiplicity="1" />
+          <End Role="HandlingViolation" Type="Self.HandlingViolation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bus">
+              <PropertyRef Name="busId" />
+            </Principal>
+            <Dependent Role="HandlingViolation">
+              <PropertyRef Name="busId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Log_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Log" Type="Self.Log" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="Log">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CPv3ModelStoreContainer">
+          <EntitySet Name="Bus" EntityType="Self.Bus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BusConnectingRoute" EntityType="Self.BusConnectingRoute" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BusDelay" EntityType="Self.BusDelay" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BusDistributor" EntityType="Self.BusDistributor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BusGuide" EntityType="Self.BusGuide" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BusPriceSupport" EntityType="Self.BusPriceSupport" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BusRoute" EntityType="Self.BusRoute" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BusRouteDelay" EntityType="Self.BusRouteDelay" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BusRouteMatch" EntityType="Self.BusRouteMatch" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BusStop" EntityType="Self.BusStop" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BusType" EntityType="Self.BusType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Delay" EntityType="Self.Delay" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Feedback" EntityType="Self.Feedback" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Guide" EntityType="Self.Guide" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HandlingViolation" EntityType="Self.HandlingViolation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Log" EntityType="Self.Log" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SupportPrice" EntityType="Self.SupportPrice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Bus_BusDistributor" Association="Self.FK_Bus_BusDistributor">
+            <End Role="BusDistributor" EntitySet="BusDistributor" />
+            <End Role="Bus" EntitySet="Bus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bus_BusType" Association="Self.FK_Bus_BusType">
+            <End Role="BusType" EntitySet="BusType" />
+            <End Role="Bus" EntitySet="Bus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BusConnectingRoute_Bus" Association="Self.FK_BusConnectingRoute_Bus">
+            <End Role="Bus" EntitySet="Bus" />
+            <End Role="BusConnectingRoute" EntitySet="BusConnectingRoute" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BusConnectingRoute_BusRoute" Association="Self.FK_BusConnectingRoute_BusRoute">
+            <End Role="BusRoute" EntitySet="BusRoute" />
+            <End Role="BusConnectingRoute" EntitySet="BusConnectingRoute" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BusDelay_Bus" Association="Self.FK_BusDelay_Bus">
+            <End Role="Bus" EntitySet="Bus" />
+            <End Role="BusDelay" EntitySet="BusDelay" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BusDelay_Delay" Association="Self.FK_BusDelay_Delay">
+            <End Role="Delay" EntitySet="Delay" />
+            <End Role="BusDelay" EntitySet="BusDelay" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BusGuide_Bus" Association="Self.FK_BusGuide_Bus">
+            <End Role="Bus" EntitySet="Bus" />
+            <End Role="BusGuide" EntitySet="BusGuide" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BusGuide_Guide" Association="Self.FK_BusGuide_Guide">
+            <End Role="Guide" EntitySet="Guide" />
+            <End Role="BusGuide" EntitySet="BusGuide" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BusPriceSupport_Bus" Association="Self.FK_BusPriceSupport_Bus">
+            <End Role="Bus" EntitySet="Bus" />
+            <End Role="BusPriceSupport" EntitySet="BusPriceSupport" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BusPriceSupport_SupportPrice" Association="Self.FK_BusPriceSupport_SupportPrice">
+            <End Role="SupportPrice" EntitySet="SupportPrice" />
+            <End Role="BusPriceSupport" EntitySet="BusPriceSupport" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BusRoute_BusStop" Association="Self.FK_BusRoute_BusStop">
+            <End Role="BusStop" EntitySet="BusStop" />
+            <End Role="BusRoute" EntitySet="BusRoute" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BusRoute_BusStop1" Association="Self.FK_BusRoute_BusStop1">
+            <End Role="BusStop" EntitySet="BusStop" />
+            <End Role="BusRoute" EntitySet="BusRoute" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BusRouteDelay_BusRoute" Association="Self.FK_BusRouteDelay_BusRoute">
+            <End Role="BusRoute" EntitySet="BusRoute" />
+            <End Role="BusRouteDelay" EntitySet="BusRouteDelay" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BusRouteDelay_Delay" Association="Self.FK_BusRouteDelay_Delay">
+            <End Role="Delay" EntitySet="Delay" />
+            <End Role="BusRouteDelay" EntitySet="BusRouteDelay" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BusRouteMatch_BusRoute" Association="Self.FK_BusRouteMatch_BusRoute">
+            <End Role="BusRoute" EntitySet="BusRoute" />
+            <End Role="BusRouteMatch" EntitySet="BusRouteMatch" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BusRouteMatch_BusRoute1" Association="Self.FK_BusRouteMatch_BusRoute1">
+            <End Role="BusRoute" EntitySet="BusRoute" />
+            <End Role="BusRouteMatch" EntitySet="BusRouteMatch" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HandlingViolation_Bus" Association="Self.FK_HandlingViolation_Bus">
+            <End Role="Bus" EntitySet="Bus" />
+            <End Role="HandlingViolation" EntitySet="HandlingViolation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Log_User" Association="Self.FK_Log_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Log" EntitySet="Log" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CPv3Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="BRM" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Buses" EntityType="CPv3Model.Bus" />
+          <EntitySet Name="BusConnectingRoutes" EntityType="CPv3Model.BusConnectingRoute" />
+          <EntitySet Name="BusDelays" EntityType="CPv3Model.BusDelay" />
+          <EntitySet Name="BusDistributors" EntityType="CPv3Model.BusDistributor" />
+          <EntitySet Name="BusGuides" EntityType="CPv3Model.BusGuide" />
+          <EntitySet Name="BusRoutes" EntityType="CPv3Model.BusRoute" />
+          <EntitySet Name="BusRouteDelays" EntityType="CPv3Model.BusRouteDelay" />
+          <EntitySet Name="BusRouteMatches" EntityType="CPv3Model.BusRouteMatch" />
+          <EntitySet Name="BusStops" EntityType="CPv3Model.BusStop" />
+          <EntitySet Name="BusTypes" EntityType="CPv3Model.BusType" />
+          <EntitySet Name="Delays" EntityType="CPv3Model.Delay" />
+          <EntitySet Name="Feedbacks" EntityType="CPv3Model.Feedback" />
+          <EntitySet Name="Guides" EntityType="CPv3Model.Guide" />
+          <EntitySet Name="HandlingViolations" EntityType="CPv3Model.HandlingViolation" />
+          <EntitySet Name="Logs" EntityType="CPv3Model.Log" />
+          <EntitySet Name="SupportPrices" EntityType="CPv3Model.SupportPrice" />
+          <EntitySet Name="sysdiagrams" EntityType="CPv3Model.sysdiagram" />
+          <EntitySet Name="Users" EntityType="CPv3Model.User" />
+          <AssociationSet Name="FK_Bus_BusDistributor" Association="CPv3Model.FK_Bus_BusDistributor">
+            <End Role="BusDistributor" EntitySet="BusDistributors" />
+            <End Role="Bus" EntitySet="Buses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bus_BusType" Association="CPv3Model.FK_Bus_BusType">
+            <End Role="BusType" EntitySet="BusTypes" />
+            <End Role="Bus" EntitySet="Buses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BusConnectingRoute_Bus" Association="CPv3Model.FK_BusConnectingRoute_Bus">
+            <End Role="Bus" EntitySet="Buses" />
+            <End Role="BusConnectingRoute" EntitySet="BusConnectingRoutes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BusDelay_Bus" Association="CPv3Model.FK_BusDelay_Bus">
+            <End Role="Bus" EntitySet="Buses" />
+            <End Role="BusDelay" EntitySet="BusDelays" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BusGuide_Bus" Association="CPv3Model.FK_BusGuide_Bus">
+            <End Role="Bus" EntitySet="Buses" />
+            <End Role="BusGuide" EntitySet="BusGuides" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HandlingViolation_Bus" Association="CPv3Model.FK_HandlingViolation_Bus">
+            <End Role="Bus" EntitySet="Buses" />
+            <End Role="HandlingViolation" EntitySet="HandlingViolations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BusConnectingRoute_BusRoute" Association="CPv3Model.FK_BusConnectingRoute_BusRoute">
+            <End Role="BusRoute" EntitySet="BusRoutes" />
+            <End Role="BusConnectingRoute" EntitySet="BusConnectingRoutes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BusDelay_Delay" Association="CPv3Model.FK_BusDelay_Delay">
+            <End Role="Delay" EntitySet="Delays" />
+            <End Role="BusDelay" EntitySet="BusDelays" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BusGuide_Guide" Association="CPv3Model.FK_BusGuide_Guide">
+            <End Role="Guide" EntitySet="Guides" />
+            <End Role="BusGuide" EntitySet="BusGuides" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BusRoute_BusStop" Association="CPv3Model.FK_BusRoute_BusStop">
+            <End Role="BusStop" EntitySet="BusStops" />
+            <End Role="BusRoute" EntitySet="BusRoutes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BusRoute_BusStop1" Association="CPv3Model.FK_BusRoute_BusStop1">
+            <End Role="BusStop" EntitySet="BusStops" />
+            <End Role="BusRoute" EntitySet="BusRoutes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BusRouteDelay_BusRoute" Association="CPv3Model.FK_BusRouteDelay_BusRoute">
+            <End Role="BusRoute" EntitySet="BusRoutes" />
+            <End Role="BusRouteDelay" EntitySet="BusRouteDelays" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BusRouteMatch_BusRoute" Association="CPv3Model.FK_BusRouteMatch_BusRoute">
+            <End Role="BusRoute" EntitySet="BusRoutes" />
+            <End Role="BusRouteMatch" EntitySet="BusRouteMatches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BusRouteMatch_BusRoute1" Association="CPv3Model.FK_BusRouteMatch_BusRoute1">
+            <End Role="BusRoute" EntitySet="BusRoutes" />
+            <End Role="BusRouteMatch" EntitySet="BusRouteMatches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BusRouteDelay_Delay" Association="CPv3Model.FK_BusRouteDelay_Delay">
+            <End Role="Delay" EntitySet="Delays" />
+            <End Role="BusRouteDelay" EntitySet="BusRouteDelays" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Log_User" Association="CPv3Model.FK_Log_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Log" EntitySet="Logs" />
+          </AssociationSet>
+          <AssociationSet Name="BusPriceSupport" Association="CPv3Model.BusPriceSupport">
+            <End Role="Bus" EntitySet="Buses" />
+            <End Role="SupportPrice" EntitySet="SupportPrices" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Bus">
+          <Key>
+            <PropertyRef Name="busId" />
+          </Key>
+          <Property Name="busId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="taxCode" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="licensePlate" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="seats" Type="Int32" />
+          <Property Name="busDistributorId" Type="Int32" Nullable="false" />
+          <Property Name="busTypeId" Type="Int32" Nullable="false" />
+          <Property Name="atCreate" Type="DateTime" Precision="3" />
+          <Property Name="atUpdate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="BusDistributor" Relationship="CPv3Model.FK_Bus_BusDistributor" FromRole="Bus" ToRole="BusDistributor" />
+          <NavigationProperty Name="BusType" Relationship="CPv3Model.FK_Bus_BusType" FromRole="Bus" ToRole="BusType" />
+          <NavigationProperty Name="BusConnectingRoutes" Relationship="CPv3Model.FK_BusConnectingRoute_Bus" FromRole="Bus" ToRole="BusConnectingRoute" />
+          <NavigationProperty Name="BusDelays" Relationship="CPv3Model.FK_BusDelay_Bus" FromRole="Bus" ToRole="BusDelay" />
+          <NavigationProperty Name="BusGuides" Relationship="CPv3Model.FK_BusGuide_Bus" FromRole="Bus" ToRole="BusGuide" />
+          <NavigationProperty Name="HandlingViolations" Relationship="CPv3Model.FK_HandlingViolation_Bus" FromRole="Bus" ToRole="HandlingViolation" />
+          <NavigationProperty Name="SupportPrices" Relationship="CPv3Model.BusPriceSupport" FromRole="Bus" ToRole="SupportPrice" />
+        </EntityType>
+        <EntityType Name="BusConnectingRoute">
+          <Key>
+            <PropertyRef Name="busConnectingRouteId" />
+          </Key>
+          <Property Name="busId" Type="Int32" Nullable="false" />
+          <Property Name="busRouteId" Type="Int32" Nullable="false" />
+          <Property Name="timeStart" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="timeEnd" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="atCreate" Type="DateTime" Precision="3" />
+          <Property Name="atUpdate" Type="DateTime" Precision="3" />
+          <Property Name="busConnectingRouteId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Bus" Relationship="CPv3Model.FK_BusConnectingRoute_Bus" FromRole="BusConnectingRoute" ToRole="Bus" />
+          <NavigationProperty Name="BusRoute" Relationship="CPv3Model.FK_BusConnectingRoute_BusRoute" FromRole="BusConnectingRoute" ToRole="BusRoute" />
+        </EntityType>
+        <EntityType Name="BusDelay">
+          <Key>
+            <PropertyRef Name="delayId" />
+            <PropertyRef Name="busId" />
+          </Key>
+          <Property Name="delayId" Type="Int32" Nullable="false" />
+          <Property Name="busId" Type="Int32" Nullable="false" />
+          <Property Name="timeStartDelay" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="timeEndDelay" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="atCreate" Type="DateTime" Precision="3" />
+          <Property Name="atUpdate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Bus" Relationship="CPv3Model.FK_BusDelay_Bus" FromRole="BusDelay" ToRole="Bus" />
+          <NavigationProperty Name="Delay" Relationship="CPv3Model.FK_BusDelay_Delay" FromRole="BusDelay" ToRole="Delay" />
+        </EntityType>
+        <EntityType Name="BusDistributor">
+          <Key>
+            <PropertyRef Name="busDistributorId" />
+          </Key>
+          <Property Name="busDistributorId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="contact" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="atCreate" Type="DateTime" Precision="3" />
+          <Property Name="atUpdate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Buses" Relationship="CPv3Model.FK_Bus_BusDistributor" FromRole="BusDistributor" ToRole="Bus" />
+        </EntityType>
+        <EntityType Name="BusGuide">
+          <Key>
+            <PropertyRef Name="busId" />
+            <PropertyRef Name="guideId" />
+          </Key>
+          <Property Name="busId" Type="Int32" Nullable="false" />
+          <Property Name="guideId" Type="Int32" Nullable="false" />
+          <Property Name="numebericOrder" Type="Int32" Nullable="false" />
+          <Property Name="atCreate" Type="DateTime" Precision="3" />
+          <Property Name="atUpdate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Bus" Relationship="CPv3Model.FK_BusGuide_Bus" FromRole="BusGuide" ToRole="Bus" />
+          <NavigationProperty Name="Guide" Relationship="CPv3Model.FK_BusGuide_Guide" FromRole="BusGuide" ToRole="Guide" />
+        </EntityType>
+        <EntityType Name="BusRoute">
+          <Key>
+            <PropertyRef Name="busRouteId" />
+          </Key>
+          <Property Name="busRouteId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="busStopIdBegin" Type="Int32" Nullable="false" />
+          <Property Name="busStopIdEnd" Type="Int32" Nullable="false" />
+          <Property Name="isMatch" Type="Boolean" Nullable="false" />
+          <Property Name="atCreate" Type="DateTime" Precision="3" />
+          <Property Name="atUpdate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="BusConnectingRoutes" Relationship="CPv3Model.FK_BusConnectingRoute_BusRoute" FromRole="BusRoute" ToRole="BusConnectingRoute" />
+          <NavigationProperty Name="BusStop" Relationship="CPv3Model.FK_BusRoute_BusStop" FromRole="BusRoute" ToRole="BusStop" />
+          <NavigationProperty Name="BusStop1" Relationship="CPv3Model.FK_BusRoute_BusStop1" FromRole="BusRoute" ToRole="BusStop" />
+          <NavigationProperty Name="BusRouteDelays" Relationship="CPv3Model.FK_BusRouteDelay_BusRoute" FromRole="BusRoute" ToRole="BusRouteDelay" />
+          <NavigationProperty Name="BusRouteMatches" Relationship="CPv3Model.FK_BusRouteMatch_BusRoute" FromRole="BusRoute" ToRole="BusRouteMatch" />
+          <NavigationProperty Name="BusRouteMatches1" Relationship="CPv3Model.FK_BusRouteMatch_BusRoute1" FromRole="BusRoute" ToRole="BusRouteMatch" />
+        </EntityType>
+        <EntityType Name="BusRouteDelay">
+          <Key>
+            <PropertyRef Name="delayId" />
+            <PropertyRef Name="busRouteId" />
+          </Key>
+          <Property Name="delayId" Type="Int32" Nullable="false" />
+          <Property Name="busRouteId" Type="Int32" Nullable="false" />
+          <Property Name="timeStartDelay" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="timeEndDelay" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="atCreate" Type="DateTime" Precision="3" />
+          <Property Name="atUpdate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="BusRoute" Relationship="CPv3Model.FK_BusRouteDelay_BusRoute" FromRole="BusRouteDelay" ToRole="BusRoute" />
+          <NavigationProperty Name="Delay" Relationship="CPv3Model.FK_BusRouteDelay_Delay" FromRole="BusRouteDelay" ToRole="Delay" />
+        </EntityType>
+        <EntityType Name="BusRouteMatch">
+          <Key>
+            <PropertyRef Name="busRouteIdParent" />
+            <PropertyRef Name="busRouteIdChild" />
+          </Key>
+          <Property Name="busRouteIdParent" Type="Int32" Nullable="false" />
+          <Property Name="busRouteIdChild" Type="Int32" Nullable="false" />
+          <Property Name="numericalOrder" Type="Int32" Nullable="false" />
+          <Property Name="atCreate" Type="DateTime" Precision="3" />
+          <Property Name="atUpdate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="BusRoute" Relationship="CPv3Model.FK_BusRouteMatch_BusRoute" FromRole="BusRouteMatch" ToRole="BusRoute" />
+          <NavigationProperty Name="BusRoute1" Relationship="CPv3Model.FK_BusRouteMatch_BusRoute1" FromRole="BusRouteMatch" ToRole="BusRoute" />
+        </EntityType>
+        <EntityType Name="BusStop">
+          <Key>
+            <PropertyRef Name="busStopId" />
+          </Key>
+          <Property Name="busStopId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="x" Type="Double" Nullable="false" />
+          <Property Name="y" Type="Double" Nullable="false" />
+          <Property Name="atCreate" Type="DateTime" Precision="3" />
+          <Property Name="atUpdate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="BusRoutes" Relationship="CPv3Model.FK_BusRoute_BusStop" FromRole="BusStop" ToRole="BusRoute" />
+          <NavigationProperty Name="BusRoutes1" Relationship="CPv3Model.FK_BusRoute_BusStop1" FromRole="BusStop" ToRole="BusRoute" />
+        </EntityType>
+        <EntityType Name="BusType">
+          <Key>
+            <PropertyRef Name="busTypeID" />
+          </Key>
+          <Property Name="busTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="atCreate" Type="DateTime" Precision="3" />
+          <Property Name="atUpdate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Buses" Relationship="CPv3Model.FK_Bus_BusType" FromRole="BusType" ToRole="Bus" />
+        </EntityType>
+        <EntityType Name="Delay">
+          <Key>
+            <PropertyRef Name="delayId" />
+          </Key>
+          <Property Name="delayId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="reason" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="atCreate" Type="DateTime" Precision="3" />
+          <Property Name="atUpdate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="BusDelays" Relationship="CPv3Model.FK_BusDelay_Delay" FromRole="Delay" ToRole="BusDelay" />
+          <NavigationProperty Name="BusRouteDelays" Relationship="CPv3Model.FK_BusRouteDelay_Delay" FromRole="Delay" ToRole="BusRouteDelay" />
+        </EntityType>
+        <EntityType Name="Feedback">
+          <Key>
+            <PropertyRef Name="feedbackId" />
+          </Key>
+          <Property Name="feedbackId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="body" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="atCreate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Guide">
+          <Key>
+            <PropertyRef Name="guideId" />
+          </Key>
+          <Property Name="guideId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="body" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="atCreate" Type="DateTime" Precision="3" />
+          <Property Name="atUpdate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="BusGuides" Relationship="CPv3Model.FK_BusGuide_Guide" FromRole="Guide" ToRole="BusGuide" />
+        </EntityType>
+        <EntityType Name="HandlingViolation">
+          <Key>
+            <PropertyRef Name="hadlingViolationId" />
+          </Key>
+          <Property Name="hadlingViolationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="busId" Type="Int32" Nullable="false" />
+          <Property Name="dispatchNumber" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="numberOfminutes" Type="Int32" />
+          <Property Name="dateOfViolation" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="body" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="violationLevel" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="penaltyRate" Type="Int32" Nullable="false" />
+          <Property Name="currencyUnit" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Bus" Relationship="CPv3Model.FK_HandlingViolation_Bus" FromRole="HandlingViolation" ToRole="Bus" />
+        </EntityType>
+        <EntityType Name="Log">
+          <Key>
+            <PropertyRef Name="logID" />
+          </Key>
+          <Property Name="logID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userID" Type="Int32" Nullable="false" />
+          <Property Name="body" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="atCreate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="User" Relationship="CPv3Model.FK_Log_User" FromRole="Log" ToRole="User" />
+        </EntityType>
+        <EntityType Name="SupportPrice">
+          <Key>
+            <PropertyRef Name="supportPriceId" />
+          </Key>
+          <Property Name="supportPriceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="supportValue" Type="Int32" Nullable="false" />
+          <Property Name="currencyUnit" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="atCreate" Type="DateTime" Precision="3" />
+          <Property Name="atUpdate" Type="DateTime" Precision="3" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="timeStart" Type="DateTime" Precision="3" />
+          <Property Name="timeEnd" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Buses" Relationship="CPv3Model.BusPriceSupport" FromRole="SupportPrice" ToRole="Bus" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="isRole" Type="Boolean" Nullable="false" />
+          <Property Name="firstname" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="lastname" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="atCreate" Type="DateTime" Precision="3" />
+          <Property Name="atUpdate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Logs" Relationship="CPv3Model.FK_Log_User" FromRole="User" ToRole="Log" />
+        </EntityType>
+        <Association Name="FK_Bus_BusDistributor">
+          <End Type="CPv3Model.BusDistributor" Role="BusDistributor" Multiplicity="1" />
+          <End Type="CPv3Model.Bus" Role="Bus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BusDistributor">
+              <PropertyRef Name="busDistributorId" />
+            </Principal>
+            <Dependent Role="Bus">
+              <PropertyRef Name="busDistributorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bus_BusType">
+          <End Type="CPv3Model.BusType" Role="BusType" Multiplicity="1" />
+          <End Type="CPv3Model.Bus" Role="Bus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BusType">
+              <PropertyRef Name="busTypeID" />
+            </Principal>
+            <Dependent Role="Bus">
+              <PropertyRef Name="busTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BusConnectingRoute_Bus">
+          <End Type="CPv3Model.Bus" Role="Bus" Multiplicity="1" />
+          <End Type="CPv3Model.BusConnectingRoute" Role="BusConnectingRoute" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bus">
+              <PropertyRef Name="busId" />
+            </Principal>
+            <Dependent Role="BusConnectingRoute">
+              <PropertyRef Name="busId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BusDelay_Bus">
+          <End Type="CPv3Model.Bus" Role="Bus" Multiplicity="1" />
+          <End Type="CPv3Model.BusDelay" Role="BusDelay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bus">
+              <PropertyRef Name="busId" />
+            </Principal>
+            <Dependent Role="BusDelay">
+              <PropertyRef Name="busId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BusGuide_Bus">
+          <End Type="CPv3Model.Bus" Role="Bus" Multiplicity="1" />
+          <End Type="CPv3Model.BusGuide" Role="BusGuide" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bus">
+              <PropertyRef Name="busId" />
+            </Principal>
+            <Dependent Role="BusGuide">
+              <PropertyRef Name="busId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HandlingViolation_Bus">
+          <End Type="CPv3Model.Bus" Role="Bus" Multiplicity="1" />
+          <End Type="CPv3Model.HandlingViolation" Role="HandlingViolation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bus">
+              <PropertyRef Name="busId" />
+            </Principal>
+            <Dependent Role="HandlingViolation">
+              <PropertyRef Name="busId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BusConnectingRoute_BusRoute">
+          <End Type="CPv3Model.BusRoute" Role="BusRoute" Multiplicity="1" />
+          <End Type="CPv3Model.BusConnectingRoute" Role="BusConnectingRoute" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BusRoute">
+              <PropertyRef Name="busRouteId" />
+            </Principal>
+            <Dependent Role="BusConnectingRoute">
+              <PropertyRef Name="busRouteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BusDelay_Delay">
+          <End Type="CPv3Model.Delay" Role="Delay" Multiplicity="1" />
+          <End Type="CPv3Model.BusDelay" Role="BusDelay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Delay">
+              <PropertyRef Name="delayId" />
+            </Principal>
+            <Dependent Role="BusDelay">
+              <PropertyRef Name="delayId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BusGuide_Guide">
+          <End Type="CPv3Model.Guide" Role="Guide" Multiplicity="1" />
+          <End Type="CPv3Model.BusGuide" Role="BusGuide" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Guide">
+              <PropertyRef Name="guideId" />
+            </Principal>
+            <Dependent Role="BusGuide">
+              <PropertyRef Name="guideId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BusRoute_BusStop">
+          <End Type="CPv3Model.BusStop" Role="BusStop" Multiplicity="1" />
+          <End Type="CPv3Model.BusRoute" Role="BusRoute" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BusStop">
+              <PropertyRef Name="busStopId" />
+            </Principal>
+            <Dependent Role="BusRoute">
+              <PropertyRef Name="busStopIdBegin" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BusRoute_BusStop1">
+          <End Type="CPv3Model.BusStop" Role="BusStop" Multiplicity="1" />
+          <End Type="CPv3Model.BusRoute" Role="BusRoute" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BusStop">
+              <PropertyRef Name="busStopId" />
+            </Principal>
+            <Dependent Role="BusRoute">
+              <PropertyRef Name="busStopIdEnd" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BusRouteDelay_BusRoute">
+          <End Type="CPv3Model.BusRoute" Role="BusRoute" Multiplicity="1" />
+          <End Type="CPv3Model.BusRouteDelay" Role="BusRouteDelay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BusRoute">
+              <PropertyRef Name="busRouteId" />
+            </Principal>
+            <Dependent Role="BusRouteDelay">
+              <PropertyRef Name="busRouteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BusRouteMatch_BusRoute">
+          <End Type="CPv3Model.BusRoute" Role="BusRoute" Multiplicity="1" />
+          <End Type="CPv3Model.BusRouteMatch" Role="BusRouteMatch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BusRoute">
+              <PropertyRef Name="busRouteId" />
+            </Principal>
+            <Dependent Role="BusRouteMatch">
+              <PropertyRef Name="busRouteIdParent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BusRouteMatch_BusRoute1">
+          <End Type="CPv3Model.BusRoute" Role="BusRoute" Multiplicity="1" />
+          <End Type="CPv3Model.BusRouteMatch" Role="BusRouteMatch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BusRoute">
+              <PropertyRef Name="busRouteId" />
+            </Principal>
+            <Dependent Role="BusRouteMatch">
+              <PropertyRef Name="busRouteIdChild" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BusRouteDelay_Delay">
+          <End Type="CPv3Model.Delay" Role="Delay" Multiplicity="1" />
+          <End Type="CPv3Model.BusRouteDelay" Role="BusRouteDelay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Delay">
+              <PropertyRef Name="delayId" />
+            </Principal>
+            <Dependent Role="BusRouteDelay">
+              <PropertyRef Name="delayId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Log_User">
+          <End Type="CPv3Model.User" Role="User" Multiplicity="1" />
+          <End Type="CPv3Model.Log" Role="Log" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="Log">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BusPriceSupport">
+          <End Type="CPv3Model.Bus" Role="Bus" Multiplicity="*" />
+          <End Type="CPv3Model.SupportPrice" Role="SupportPrice" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CPv3ModelStoreContainer" CdmEntityContainer="BRM">
+          <EntitySetMapping Name="Buses">
+            <EntityTypeMapping TypeName="CPv3Model.Bus">
+              <MappingFragment StoreEntitySet="Bus">
+                <ScalarProperty Name="atUpdate" ColumnName="atUpdate" />
+                <ScalarProperty Name="atCreate" ColumnName="atCreate" />
+                <ScalarProperty Name="busTypeId" ColumnName="busTypeId" />
+                <ScalarProperty Name="busDistributorId" ColumnName="busDistributorId" />
+                <ScalarProperty Name="seats" ColumnName="seats" />
+                <ScalarProperty Name="licensePlate" ColumnName="licensePlate" />
+                <ScalarProperty Name="taxCode" ColumnName="taxCode" />
+                <ScalarProperty Name="busId" ColumnName="busId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BusConnectingRoutes">
+            <EntityTypeMapping TypeName="CPv3Model.BusConnectingRoute">
+              <MappingFragment StoreEntitySet="BusConnectingRoute">
+                <ScalarProperty Name="busConnectingRouteId" ColumnName="busConnectingRouteId" />
+                <ScalarProperty Name="atUpdate" ColumnName="atUpdate" />
+                <ScalarProperty Name="atCreate" ColumnName="atCreate" />
+                <ScalarProperty Name="timeEnd" ColumnName="timeEnd" />
+                <ScalarProperty Name="timeStart" ColumnName="timeStart" />
+                <ScalarProperty Name="busRouteId" ColumnName="busRouteId" />
+                <ScalarProperty Name="busId" ColumnName="busId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BusDelays">
+            <EntityTypeMapping TypeName="CPv3Model.BusDelay">
+              <MappingFragment StoreEntitySet="BusDelay">
+                <ScalarProperty Name="atUpdate" ColumnName="atUpdate" />
+                <ScalarProperty Name="atCreate" ColumnName="atCreate" />
+                <ScalarProperty Name="timeEndDelay" ColumnName="timeEndDelay" />
+                <ScalarProperty Name="timeStartDelay" ColumnName="timeStartDelay" />
+                <ScalarProperty Name="busId" ColumnName="busId" />
+                <ScalarProperty Name="delayId" ColumnName="delayId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BusDistributors">
+            <EntityTypeMapping TypeName="CPv3Model.BusDistributor">
+              <MappingFragment StoreEntitySet="BusDistributor">
+                <ScalarProperty Name="atUpdate" ColumnName="atUpdate" />
+                <ScalarProperty Name="atCreate" ColumnName="atCreate" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="contact" ColumnName="contact" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="busDistributorId" ColumnName="busDistributorId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BusGuides">
+            <EntityTypeMapping TypeName="CPv3Model.BusGuide">
+              <MappingFragment StoreEntitySet="BusGuide">
+                <ScalarProperty Name="atUpdate" ColumnName="atUpdate" />
+                <ScalarProperty Name="atCreate" ColumnName="atCreate" />
+                <ScalarProperty Name="numebericOrder" ColumnName="numebericOrder" />
+                <ScalarProperty Name="guideId" ColumnName="guideId" />
+                <ScalarProperty Name="busId" ColumnName="busId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BusRoutes">
+            <EntityTypeMapping TypeName="CPv3Model.BusRoute">
+              <MappingFragment StoreEntitySet="BusRoute">
+                <ScalarProperty Name="atUpdate" ColumnName="atUpdate" />
+                <ScalarProperty Name="atCreate" ColumnName="atCreate" />
+                <ScalarProperty Name="isMatch" ColumnName="isMatch" />
+                <ScalarProperty Name="busStopIdEnd" ColumnName="busStopIdEnd" />
+                <ScalarProperty Name="busStopIdBegin" ColumnName="busStopIdBegin" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="busRouteId" ColumnName="busRouteId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BusRouteDelays">
+            <EntityTypeMapping TypeName="CPv3Model.BusRouteDelay">
+              <MappingFragment StoreEntitySet="BusRouteDelay">
+                <ScalarProperty Name="atUpdate" ColumnName="atUpdate" />
+                <ScalarProperty Name="atCreate" ColumnName="atCreate" />
+                <ScalarProperty Name="timeEndDelay" ColumnName="timeEndDelay" />
+                <ScalarProperty Name="timeStartDelay" ColumnName="timeStartDelay" />
+                <ScalarProperty Name="busRouteId" ColumnName="busRouteId" />
+                <ScalarProperty Name="delayId" ColumnName="delayId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BusRouteMatches">
+            <EntityTypeMapping TypeName="CPv3Model.BusRouteMatch">
+              <MappingFragment StoreEntitySet="BusRouteMatch">
+                <ScalarProperty Name="atUpdate" ColumnName="atUpdate" />
+                <ScalarProperty Name="atCreate" ColumnName="atCreate" />
+                <ScalarProperty Name="numericalOrder" ColumnName="numericalOrder" />
+                <ScalarProperty Name="busRouteIdChild" ColumnName="busRouteIdChild" />
+                <ScalarProperty Name="busRouteIdParent" ColumnName="busRouteIdParent" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BusStops">
+            <EntityTypeMapping TypeName="CPv3Model.BusStop">
+              <MappingFragment StoreEntitySet="BusStop">
+                <ScalarProperty Name="atUpdate" ColumnName="atUpdate" />
+                <ScalarProperty Name="atCreate" ColumnName="atCreate" />
+                <ScalarProperty Name="y" ColumnName="y" />
+                <ScalarProperty Name="x" ColumnName="x" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="busStopId" ColumnName="busStopId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BusTypes">
+            <EntityTypeMapping TypeName="CPv3Model.BusType">
+              <MappingFragment StoreEntitySet="BusType">
+                <ScalarProperty Name="atUpdate" ColumnName="atUpdate" />
+                <ScalarProperty Name="atCreate" ColumnName="atCreate" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="busTypeID" ColumnName="busTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Delays">
+            <EntityTypeMapping TypeName="CPv3Model.Delay">
+              <MappingFragment StoreEntitySet="Delay">
+                <ScalarProperty Name="atUpdate" ColumnName="atUpdate" />
+                <ScalarProperty Name="atCreate" ColumnName="atCreate" />
+                <ScalarProperty Name="reason" ColumnName="reason" />
+                <ScalarProperty Name="delayId" ColumnName="delayId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Feedbacks">
+            <EntityTypeMapping TypeName="CPv3Model.Feedback">
+              <MappingFragment StoreEntitySet="Feedback">
+                <ScalarProperty Name="atCreate" ColumnName="atCreate" />
+                <ScalarProperty Name="body" ColumnName="body" />
+                <ScalarProperty Name="feedbackId" ColumnName="feedbackId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Guides">
+            <EntityTypeMapping TypeName="CPv3Model.Guide">
+              <MappingFragment StoreEntitySet="Guide">
+                <ScalarProperty Name="atUpdate" ColumnName="atUpdate" />
+                <ScalarProperty Name="atCreate" ColumnName="atCreate" />
+                <ScalarProperty Name="body" ColumnName="body" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="guideId" ColumnName="guideId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HandlingViolations">
+            <EntityTypeMapping TypeName="CPv3Model.HandlingViolation">
+              <MappingFragment StoreEntitySet="HandlingViolation">
+                <ScalarProperty Name="currencyUnit" ColumnName="currencyUnit" />
+                <ScalarProperty Name="penaltyRate" ColumnName="penaltyRate" />
+                <ScalarProperty Name="violationLevel" ColumnName="violationLevel" />
+                <ScalarProperty Name="body" ColumnName="body" />
+                <ScalarProperty Name="dateOfViolation" ColumnName="dateOfViolation" />
+                <ScalarProperty Name="numberOfminutes" ColumnName="numberOfminutes" />
+                <ScalarProperty Name="dispatchNumber" ColumnName="dispatchNumber" />
+                <ScalarProperty Name="busId" ColumnName="busId" />
+                <ScalarProperty Name="hadlingViolationId" ColumnName="hadlingViolationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Logs">
+            <EntityTypeMapping TypeName="CPv3Model.Log">
+              <MappingFragment StoreEntitySet="Log">
+                <ScalarProperty Name="atCreate" ColumnName="atCreate" />
+                <ScalarProperty Name="body" ColumnName="body" />
+                <ScalarProperty Name="userID" ColumnName="userID" />
+                <ScalarProperty Name="logID" ColumnName="logID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SupportPrices">
+            <EntityTypeMapping TypeName="CPv3Model.SupportPrice">
+              <MappingFragment StoreEntitySet="SupportPrice">
+                <ScalarProperty Name="timeEnd" ColumnName="timeEnd" />
+                <ScalarProperty Name="timeStart" ColumnName="timeStart" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="atUpdate" ColumnName="atUpdate" />
+                <ScalarProperty Name="atCreate" ColumnName="atCreate" />
+                <ScalarProperty Name="currencyUnit" ColumnName="currencyUnit" />
+                <ScalarProperty Name="supportValue" ColumnName="supportValue" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="supportPriceId" ColumnName="supportPriceId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="CPv3Model.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="CPv3Model.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="atUpdate" ColumnName="atUpdate" />
+                <ScalarProperty Name="atCreate" ColumnName="atCreate" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="isRole" ColumnName="isRole" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="BusPriceSupport" TypeName="CPv3Model.BusPriceSupport" StoreEntitySet="BusPriceSupport">
+            <EndProperty Name="SupportPrice">
+              <ScalarProperty Name="supportPriceId" ColumnName="supportPriceId" />
+            </EndProperty>
+            <EndProperty Name="Bus">
+              <ScalarProperty Name="busId" ColumnName="busId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
